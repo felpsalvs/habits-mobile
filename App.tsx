@@ -6,6 +6,7 @@ Inter_700Bold,
 Inter_800ExtraBold } from '@expo-google-fonts/inter';
 import { Loading } from './src/components/Loading';
 import { Home } from './src/screens/Home';
+import './src/libs/dayjs'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
