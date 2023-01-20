@@ -31,7 +31,9 @@ export function Home() {
       >
         <View className="flex-row flex-wrap">
           {datesFromYearStart.map((date) => (
-            <HabitDay key={date.toISOString()} />
+            <HabitDay 
+            onPress={() => navigate('habit', { date: date.toISOString() })}
+            key={date.toISOString()} />
           ))}
 
           {amountOfDaysToFill > 0 &&
