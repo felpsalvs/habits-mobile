@@ -1,20 +1,22 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacityProps, TouchableOpacity, View, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import colors from "tailwindcss/colors";
 
-interface Props {
-  checked?: boolean;
+interface Props extends TouchableOpacityProps {
   title: string;
+  checked?: boolean;
 }
 
-export function Checkbox({ title, checked = false }: Props) {
+export function Checkbox({ title, checked = false, ...rest }: Props) {
   return (
     <TouchableOpacity
       className="flex-row items-center mb-2"
       activeOpacity={0.7}
+      {...rest}
     >
       {
-        checked ?
+        checked 
+        ?
         <View className="h-8 w-8 bg-green-500 rounded-lg items-center justify-center">
         <Feather name="check" size={20} color={colors.white} />
       </View>
