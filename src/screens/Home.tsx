@@ -74,6 +74,9 @@ export function Home() {
               });
               return (
                 <HabitDay
+                  amountOfHabits={dayWithHabits?.amount}
+                  amountCompleted={dayWithHabits?.completed}
+                  date={date}
                   onPress={() =>
                     navigate("habit", { date: date.toISOString() })
                   }
