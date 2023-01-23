@@ -11,8 +11,8 @@ export const DAY_SIZE =
   (Dimensions.get("screen").width / WEEK_DAYS) - (SCREEN_HORIZONTAL_PADDING + 5);
 
 interface Props extends TouchableOpacityProps {
-  amountOfHabits: number;
-  amountCompleted: number;
+  amountOfHabits?: number;
+  amountCompleted?: number;
   date: Date;
 };
 
