@@ -4,8 +4,8 @@ import { generateRangeDatesFromYearStart } from "../utils/generate-range-between
 
 import { Header } from "../components/Header";
 import { HabitDay, DAY_SIZE } from "../components/HabitDay";
-import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useState, useCallback } from "react";
 import { Loading } from "../components/Loading";
 import dayjs from "dayjs";
 
@@ -40,12 +40,14 @@ export function Home() {
     }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     fetchData();
-  }, []);
+  }, []));
 
   if (loading) {
-    return <Loading />;
+    return (
+    <Loading />
+    );
   }
 
   return (
@@ -68,19 +70,19 @@ export function Home() {
       >
         {summary && (
           <View className="flex-row flex-wrap">
-            {datesFromYearStart.map((date) => {
-              const dayWithHabits = summary.find((day) => {
+            {datesFromYearStart.map(date => {
+              const dayWithHabits = summary.find(day => {
                 return dayjs(date).isSame(day.date, "day");
               });
               return (
                 <HabitDay
+                  key={date.toISOString()}
+                  date={date}
                   amountOfHabits={dayWithHabits?.amount}
                   amountCompleted={dayWithHabits?.completed}
-                  date={date}
                   onPress={() =>
                     navigate("habit", { date: date.toISOString() })
                   }
-                  key={date.toISOString()}
                 />
               );
             })}
