@@ -7,6 +7,7 @@ import { Checkbox } from "../components/Checkbox";
 import { useEffect, useState } from "react";
 import { api } from "../libs/axios";
 import { Loading } from "../components/Loading";
+import { generateProgressPercentage } from "../utils/generate-progress-percentage";
 
 interface Params {
   date: string;
@@ -29,8 +30,11 @@ export function Habit() {
   const { date } = route.params as Params;
 
   const parsedDate = dayjs(date);
+  const isDateInPast = parsedDate.endOf("day").isBefore(new Date());
   const dayOfWeek = parsedDate.format("dddd");
   const dayOfMonth = parsedDate.format("DD/MM");
+
+  const habitsProgress = dayInfo?.possibleHabits?.length ? generateProgressPercentage(dayInfo.possibleHabits.length, completedHabits.length) : 0
 
   async function fetchHabits() {
     try {
@@ -38,12 +42,27 @@ export function Habit() {
 
       const response = await api.get("/day", { params: { date } });
       setDayInfo(response.data);
-      setCompletedHabits(response.data.completedHabits);
+      setCompletedHabits(response.data.completedHabits ?? []);
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível carregar os hábitos");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleToggleHabits(habitId: string) {
+    try {
+      await api.patch(`/habits/${habitId}/toggle`);
+
+      if (completedHabits?.includes(habitId)) {
+        setCompletedHabits(prevState => prevState.filter(habit => habit !== habitId));
+      } else {
+        setCompletedHabits(prevState => [...prevState, habitId]);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Não foi possível atualizar o hábito");
     }
   }
 
