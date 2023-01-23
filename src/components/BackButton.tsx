@@ -11,7 +11,7 @@ export function BackButton() {
       onPress={goBack}
       activeOpacity={0.7}
     >
-      <Feather name="arrow-left" size={24} color={colors.zinc[400]} />
+      <Feather name="arrow-left" size={32} color={colors.zinc[400]} />
     </TouchableOpacity>
   );
 }
