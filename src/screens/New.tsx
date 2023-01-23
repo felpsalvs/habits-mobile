@@ -30,18 +30,17 @@ export function New() {
 
   function handleToggleWeekDay(weekDayIndex: number) {
     if (weekDays.includes(weekDayIndex)) {
-      setWeekDays((prevState) =>
-        prevState.filter((weekDay) => weekDay !== weekDayIndex)
-      );
+      setWeekDays(prevState =>
+        prevState.filter(weekDay => weekDay !== weekDayIndex));
     } else {
-      setWeekDays((prevState) => [...prevState, weekDayIndex]);
+      setWeekDays(prevState => [...prevState, weekDayIndex]);
     }
   }
 
   async function handleCreateNewHabit() {
     try {
       if (!title.trim() || weekDays.length === 0) {
-        return Alert.alert(
+        Alert.alert(
           "Novo hábito",
           "Informe o nome do hábito e escolha a periodicidade."
         );
