@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { ProgressBar } from "../components/ProgressBar";
 import { Checkbox } from "../components/Checkbox";
 import React, { useEffect, useState } from "react";
-import { api } from "../libs/axios";
+import { api } from "../lib/axios";
 import { Loading } from "../components/Loading";
 import { generateProgressPercentage } from "../utils/generate-progress-percentage";
 import clsx from "clsx";

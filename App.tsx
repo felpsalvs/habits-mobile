@@ -5,7 +5,7 @@ Inter_600SemiBold,
 Inter_700Bold,
 Inter_800ExtraBold } from '@expo-google-fonts/inter';
 import { Loading } from './src/components/Loading';
-import './src/libs/dayjs'
+import './src/lib/dayjs'
 import { Routes } from './src/routes';
 
 export default function App() {

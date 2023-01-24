@@ -12,7 +12,7 @@ import { Feather } from "@expo/vector-icons";
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
 import colors from "tailwindcss/colors";
-import { api } from "../libs/axios";
+import { api } from "../lib/axios";
 
 const availableWeekDays = [
   "Domingo",

@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Alert } from "react-native";
-import { api } from "../libs/axios";
+import { api } from "../lib/axios";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 
 import { Header } from "../components/Header";
