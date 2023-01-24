@@ -18,7 +18,7 @@ interface Props extends TouchableOpacityProps {
 
 export function HabitDay({amountOfHabits = 0, amountCompleted = 0, date, ...rest }: Props) {
 
-  const amountAccomplishedPercentage = amountOfHabits > 0 ? generateProgressPercentage(amountOfHabits, amountCompleted) : 0;
+  const amountAccomplishedPercentage = amountOfHabits > 0 ? generateProgressPercentage(amountOfHabits, amountCompleted) : 0
   const today = dayjs().startOf("day").toDate();
   const isCurrentDay = dayjs(date).isSame(today);
 
@@ -31,7 +31,7 @@ export function HabitDay({amountOfHabits = 0, amountCompleted = 0, date, ...rest
         ["bg-violet-700 border-violet-500"]: amountAccomplishedPercentage >= 40 && amountAccomplishedPercentage < 60,
         ["bg-violet-600 border-violet-400"]: amountAccomplishedPercentage >= 60 && amountAccomplishedPercentage < 80,
         ["bg-violet-500 border-violet-300"]: amountAccomplishedPercentage >= 80,
-        ["bg-violet-400 border-violet-200 border-4"]: isCurrentDay,
+        ["border-violet-200 border-4"]: isCurrentDay,
       })}
       style={{ width: DAY_SIZE, height: DAY_SIZE }}
       activeOpacity={0.7}
