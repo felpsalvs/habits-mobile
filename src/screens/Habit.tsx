@@ -3,7 +3,7 @@ import { useRoute } from "@react-navigation/native";
 import { BackButton } from "../components/BackButton";
 import { HabitsEmpty } from "../components/HabitsEmpty";
 import dayjs from "dayjs";
-import { ProgressBar } from "../components/ProgressBar";
+import { ProgressBar } from "../components/Progress.Bar";
 import { Checkbox } from "../components/Checkbox";
 import React, { useEffect, useState } from "react";
 import { api } from "../lib/axios";
@@ -41,7 +41,7 @@ export function Habit() {
         dayInfo.possibleHabits.length,
         completedHabits.length
       )
-    : 0;
+    : 0
 
   async function fetchHabits() {
     try {
