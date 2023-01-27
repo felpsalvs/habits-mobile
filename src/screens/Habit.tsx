@@ -1,15 +1,17 @@
-import { View, ScrollView, Text, Alert } from "react-native";
+import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
-import { BackButton } from "../components/BackButton";
-import { HabitsEmpty } from "../components/HabitsEmpty";
+import { Alert, ScrollView, Text, View } from "react-native";
 import dayjs from "dayjs";
+import clsx from "clsx";
+
+import { api } from "../lib/axios";
+import { generateProgressPercentage } from "../utils/generate-progress-percentage";
+
+import { BackButton } from "../components/BackButton";
 import { ProgressBar } from "../components/Progress.Bar";
 import { Checkbox } from "../components/Checkbox";
-import React, { useEffect, useState } from "react";
-import { api } from "../lib/axios";
 import { Loading } from "../components/Loading";
-import { generateProgressPercentage } from "../utils/generate-progress-percentage";
-import clsx from "clsx";
+import { HabitsEmpty } from "../components/HabitsEmpty";
 
 interface Params {
   date: string;
@@ -34,14 +36,14 @@ export function Habit() {
   const parsedDate = dayjs(date);
   const isDateInPast = parsedDate.endOf("day").isBefore(new Date());
   const dayOfWeek = parsedDate.format("dddd");
-  const dayOfMonth = parsedDate.format("DD/MM");
+  const dayAndMonth = parsedDate.format("DD/MM");
 
   const habitsProgress = dayInfo?.possibleHabits?.length
     ? generateProgressPercentage(
         dayInfo.possibleHabits.length,
         completedHabits.length
       )
-    : 0
+    : 0;
 
   async function fetchHabits() {
     try {
@@ -52,7 +54,10 @@ export function Habit() {
       setCompletedHabits(response.data.completedHabits ?? []);
     } catch (error) {
       console.log(error);
-      Alert.alert("Não foi possível carregar os hábitos");
+      Alert.alert(
+        "Ops",
+        "Não foi possível carregar as informações dos hábitos."
+      );
     } finally {
       setLoading(false);
     }
@@ -71,7 +76,7 @@ export function Habit() {
       }
     } catch (error) {
       console.log(error);
-      Alert.alert("Não foi possível atualizar o hábito");
+      Alert.alert("Ops", "Não foi possível atualizar o status do hábito.");
     }
   }
 
@@ -80,9 +85,7 @@ export function Habit() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
 
   return (
@@ -92,37 +95,42 @@ export function Habit() {
         contentContainerStyle={{ paddingBottom: 100 }}
       >
         <BackButton />
+
         <Text className="mt-6 text-zinc-400 font-semibold text-base lowercase">
           {dayOfWeek}
         </Text>
-        <Text className="text-white font-extrabold text-3xl">{dayOfMonth}</Text>
+
+        <Text className="text-white font-extrabold text-3xl">
+          {dayAndMonth}
+        </Text>
 
         <ProgressBar progress={habitsProgress} />
 
-        <View className={clsx("mt-6", {
-          ['opacity-50']: isDateInPast
-        })}>
-          {dayInfo?.possibleHabits ?
-            dayInfo.possibleHabits?.map(habit => (
+        <View
+          className={clsx("mt-6", {
+            ["opacity-50"]: isDateInPast,
+          })}
+        >
+          {dayInfo?.possibleHabits ? (
+            dayInfo.possibleHabits?.map((habit) => (
               <Checkbox
+                key={habit.id}
+                title={habit.title}
+                checked={completedHabits?.includes(habit.id)}
                 onPress={() => handleToggleHabits(habit.id)}
                 disabled={isDateInPast}
-                title={habit.title}
-                key={habit.id}
-                checked={completedHabits.includes(habit.id)}
               />
             ))
-          :
-          <HabitsEmpty />
-          }
+          ) : (
+            <HabitsEmpty />
+          )}
         </View>
-        {
-          isDateInPast && (
-            <Text className="text-white text-center mt-10">
-              Você não pode mais marcar ou desmarcar hábitos de um dia que já passou.
-            </Text>
-          )
-        }
+
+        {isDateInPast && (
+          <Text className="text-white mt-10 text-center">
+            Você não pode editar hábitos de uma data passada.
+          </Text>
+        )}
       </ScrollView>
     </View>
   );

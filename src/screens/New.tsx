@@ -1,17 +1,17 @@
 import { useState } from "react";
 import {
-  View,
+  Alert,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
+  View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import colors from "tailwindcss/colors";
 
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
-import colors from "tailwindcss/colors";
 import { api } from "../lib/axios";
 
 const availableWeekDays = [
@@ -25,15 +25,16 @@ const availableWeekDays = [
 ];
 
 export function New() {
-  const [title, setTitle] = useState("");
   const [weekDays, setWeekDays] = useState<number[]>([]);
+  const [title, setTitle] = useState("");
 
   function handleToggleWeekDay(weekDayIndex: number) {
     if (weekDays.includes(weekDayIndex)) {
-      setWeekDays(prevState =>
-        prevState.filter(weekDay => weekDay !== weekDayIndex));
+      setWeekDays((prevState) =>
+        prevState.filter((weekDay) => weekDay !== weekDayIndex)
+      );
     } else {
-      setWeekDays(prevState => [...prevState, weekDayIndex]);
+      setWeekDays((prevState) => [...prevState, weekDayIndex]);
     }
   }
 
@@ -51,22 +52,22 @@ export function New() {
       setTitle("");
       setWeekDays([]);
 
-      Alert.alert("Novo hábito", "Hábito criado com sucesso.");
+      Alert.alert("Novo hábito", "Hábito criado com sucesso!");
     } catch (error) {
       console.log(error);
-      Alert.alert("Erro", "Não foi possível criar o hábito.");
+      Alert.alert("Ops", "Não foi possível criar o novo hábito");
     }
   }
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
       <ScrollView
-        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
       >
         <BackButton />
 
-        <Text className="mt-6 font-extrabold text-white text-3xl">
+        <Text className="mt-6 text-white font-extrabold text-3xl">
           Criar hábito
         </Text>
 
@@ -75,34 +76,34 @@ export function New() {
         </Text>
 
         <TextInput
+          className="h-12 pl-4 rounded-lg mt-3 bg-zinc-900 text-white border-2 border-zinc-800 focus:border-green-600"
+          placeholder="Exercícios, dormir bem, etc..."
+          placeholderTextColor={colors.zinc[400]}
           onChangeText={setTitle}
           value={title}
-          placeholder="Digite o nome do hábito"
-          placeholderTextColor={colors.zinc[400]}
-          className="h-12 pl-4 rounded-lg mt-3 bg-zinc-900 text-white border-2 border-zinc-800 focus:border-green-600"
         />
 
-        <Text className="mt-4 mb-3 text-white font-semibold text-base">
+        <Text className="font-semibold mt-4 mb-3 text-white text-base">
           Qual a recorrência?
         </Text>
 
         {availableWeekDays.map((weekDay, index) => (
           <Checkbox
-            onPress={() => handleToggleWeekDay(index)}
-            checked={weekDays.includes(index)}
             key={weekDay}
             title={weekDay}
+            checked={weekDays.includes(index)}
+            onPress={() => handleToggleWeekDay(index)}
           />
         ))}
 
         <TouchableOpacity
-          className="flex-row items-center justify-center mt-6 h-14 w-full bg-green-600 rounded-md hover:bg-green-500"
+          className="w-full h-14 flex-row items-center justify-center bg-green-600 rounded-md mt-6"
           activeOpacity={0.7}
           onPress={handleCreateNewHabit}
         >
           <Feather name="check" size={20} color={colors.white} />
 
-          <Text className="text-white font-semibold text-base ml-2">
+          <Text className="font-semibold text-base text-white ml-2">
             Confirmar
           </Text>
         </TouchableOpacity>
