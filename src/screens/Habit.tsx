@@ -12,7 +12,6 @@ import { ProgressBar } from "../components/ProgressBar";
 import { Checkbox } from "../components/Checkbox";
 import { Loading } from "../components/Loading";
 import { HabitsEmpty } from "../components/HabitsEmpty";
-import React from 'react';
 
 interface Params {
   date: string;

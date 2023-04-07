@@ -8,7 +8,6 @@ import { Loading } from "../components/Loading";
 import { api } from "../lib/axios";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 import dayjs from "dayjs";
-import React from "react";
 
 const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 const datesFromYearStart = generateRangeDatesFromYearStart();

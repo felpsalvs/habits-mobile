@@ -12,7 +12,6 @@ import { Checkbox } from "../components/Checkbox";
 import { Feather } from "@expo/vector-icons";
 import colors from "tailwindcss/colors";
 import { api } from "../lib/axios";
-import React from "react";
 
 const availableWeekDays = [
   "Domingo",
