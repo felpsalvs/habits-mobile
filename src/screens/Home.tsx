@@ -1,19 +1,19 @@
 import { useCallback, useState } from "react";
-import { Text, View, ScrollView, Alert } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { View, Text, ScrollView, Alert } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { HabitDay, daySize } from "../components/HabitDay";
+import { Header } from "../components/Header";
+import { Loading } from "../components/Loading";
 
 import { api } from "../lib/axios";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
-
-import { Header } from "../components/Header";
-import { Loading } from "../components/Loading";
-import { HabitDay, DAY_SIZE } from "../components/HabitDay";
 import dayjs from "dayjs";
+import React from "react";
 
 const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 const datesFromYearStart = generateRangeDatesFromYearStart();
-const minimunSummaryDatesSizes = 18 * 5;
-const amountOfDaysToFill = minimunSummaryDatesSizes - datesFromYearStart.length;
+const minimumSummaryDatesSizes = 18 * 7;
+const amountOfDaysToFill = minimumSummaryDatesSizes - datesFromYearStart.length;
 
 type SummaryProps = Array<{
   id: string;
@@ -31,7 +31,7 @@ export function Home() {
   async function fetchData() {
     try {
       setLoading(true);
-      const response = await api.get("/summary");
+      let response = await api.get("summary");
       setSummary(response.data);
     } catch (error) {
       Alert.alert("Ops", "Não foi possível carregar o sumário de hábitos.");
@@ -58,9 +58,9 @@ export function Home() {
       <View className="flex-row mt-6 mb-2">
         {weekDays.map((weekDay, i) => (
           <Text
-            key={`${weekDay}-${i}`}
+            key={`${weekDay} - ${i}`}
             className="text-zinc-400 text-xl font-bold text-center mx-1"
-            style={{ width: DAY_SIZE }}
+            style={{ width: daySize }}
           >
             {weekDay}
           </Text>
@@ -82,8 +82,8 @@ export function Home() {
                 <HabitDay
                   key={date.toISOString()}
                   date={date}
-                  amountOfHabits={dayWithHabits?.amount}
-                  amountCompleted={dayWithHabits?.completed}
+                  amount={dayWithHabits?.amount}
+                  completed={dayWithHabits?.completed}
                   onPress={() =>
                     navigate("habit", { date: date.toISOString() })
                   }
@@ -96,7 +96,7 @@ export function Home() {
                 <View
                   key={index}
                   className="bg-zinc-900 rounded-lg border-2 m-1 border-zinc-800 opacity-40"
-                  style={{ width: DAY_SIZE, height: DAY_SIZE }}
+                  style={{ width: daySize, height: daySize }}
                 />
               ))}
           </View>
