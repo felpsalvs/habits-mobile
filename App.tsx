@@ -1,6 +1,6 @@
 import './src/lib/dayjs';
 
-import { StatusBar } from 'react-native';
+import { Button, StatusBar } from 'react-native';
 import {
   useFonts,
   Inter_400Regular,
@@ -14,6 +14,14 @@ import { Loading } from './src/components/Loading';
 import { Routes } from './src/routes';
 import { useEffect } from 'react';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldSetBadge: false,
+    shouldPlaySound: false,
+  })
+})
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -22,17 +30,10 @@ export default function App() {
     Inter_800ExtraBold
   });
 
-  async function schedulePushNotification() {
-    const schedule = await Notifications.getAllScheduledNotificationsAsync();
-    console.log("Agendadas: ", schedule);
-
-    if (schedule.length > 0) {
-      await Notifications.cancelAllScheduledNotificationsAsync();
-    }
+  async function scheduleNotification() {
 
     const trigger = new Date(Date.now());
-    trigger.setHours(trigger.getHours() + 5);
-    trigger.setSeconds(0);
+    trigger.setMinutes(trigger.getMinutes() + 1);
 
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -43,10 +44,6 @@ export default function App() {
     });
   }
 
-  useEffect(() => {
-    schedulePushNotification();
-  }, []);
-
   if (!fontsLoaded) {
     return (
       <Loading />
@@ -56,6 +53,7 @@ export default function App() {
   return (
     <>
       <Routes />
+      <Button title='Send Notification' onPress={scheduleNotification} />
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
     </>
   );
