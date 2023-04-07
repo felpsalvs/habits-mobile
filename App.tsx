@@ -12,7 +12,6 @@ import * as Notifications from 'expo-notifications';
 
 import { Loading } from './src/components/Loading';
 import { Routes } from './src/routes';
-import React from 'react';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

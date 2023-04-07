@@ -6,11 +6,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-interface Props {
+interface ProgressBarProps {
   progress?: number;
 }
 
-export function ProgressBar({ progress = 0 }: Props) {
+export function ProgressBar({ progress = 0 }: ProgressBarProps) {
   const sharedProgress = useSharedValue(progress);
   const style = useAnimatedStyle(() => {
     return {
