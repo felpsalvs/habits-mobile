@@ -1,42 +1,41 @@
-
 # Habits (mobile)
 
-Eu participei do NLW que é um evento de programação gratuito organizado pela Rocketseat que dura uma semana. Durante a semana, desenvolvemos um aplicativo completo, que vai do back-end ao aplicativo web/mobile, utilizando tecnologias que estão em alta no mercado de programação.
+I participated in NLW which is a free programming event organized by Rocketseat that lasts a week. During the week, we developed a complete application, ranging from the back-end to the web/mobile application, using technologies that are popular in the programming market.
 
 
 ![Cover](https://user-images.githubusercontent.com/78622458/215225528-5144a27c-e4d9-4a50-b4f4-57e1ed70cb9b.png)
 
 
-## Tecnologias
+## Technologies
 
-**Cliente:** <br/>
-🟢 React.js e Typescript <br/>
+**Client:** <br/>
+🟢 React.js and Typescript <br/>
 🟢 React Native <br/>
 🟢 phosphor-react <br/>
 🟢 react-hot-toast <br/>
 🟢 tailwind <br/>
 🟢 phosphor-react <br/>
-🟢 @radix-ui 
+🟢 @radix-ui
 
-**Servidor:** <br/>
+**Server:** <br/>
 🟣 fastify <br/>
 🟣 zod <br/>
-🟣 prisma <br/>
+🟣 prism <br/>
 🟣 axios
 
 
-## Instalação
+## Installation
 
-Instale com npm ou yarn
+Install with npm or yarn
 
-### Para rodar o front e o back: 💻
+### To rotate the front and back: 💻
 ```bash
- yarn install or npm i (to install dependencies)
- npm run dev
+  yarn install or npm i (to install dependencies)
+  npm run dev
 ```
 
-### Para rodar o mobile: 💻📲
+### To run mobile: 💻📲
 ```bash
- yarn install or npm i (to install dependencies)
- npx expo start
+  yarn install or npm i (to install dependencies)
+  npx expo start
 ```
