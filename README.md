@@ -18,20 +18,3 @@ I participated in NLW which is a free programming event organized by Rocketseat 
 🟣 zod <br/>
 🟣 prism <br/>
 🟣 axios
-
-
-## Installation
-
-Install with npm or yarn
-
-### To rotate the front and back: 💻
-```bash
-  yarn install or npm i (to install dependencies)
-  npm run dev
-```
-
-### To run mobile: 💻📲
-```bash
-  yarn install or npm i (to install dependencies)
-  npx expo start
-```
