@@ -1,7 +1,3 @@
-# Habits (mobile)
-
-I participated in NLW which is a free programming event organized by Rocketseat that lasts a week. During the week, we developed a complete application, ranging from the back-end to the web/mobile application, using technologies that are popular in the programming market.
-
 ## Technologies
 
 **Client:** <br/>
